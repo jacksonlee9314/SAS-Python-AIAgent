@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Lambda: HelloWorldFunction",
+            "type": "python",
+            "request": "attach",
+            "port": 5890,
+            "host": "localhost",
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/lambda_bedrock",
+                    "remoteRoot": "/var/task"
+                }
+            ]
+        }
+    ]
+}

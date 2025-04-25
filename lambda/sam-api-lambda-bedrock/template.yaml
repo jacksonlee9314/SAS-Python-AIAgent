@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-api-lambda-bedrock
+
+  Sample SAM Template for sam-api-lambda-bedrock
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 60
+
+Resources:
+  BedrockFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: lambda_bedrock/
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Architectures:
+        - x86_64
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - bedrock:InvokeModel
+              Resource: arn:aws:bedrock:ap-southeast-2::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0
+      Events:
+        BedrockApi:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /bedrock
+            Method: post # Changed from 'get' to 'post'
